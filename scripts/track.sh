@@ -27,7 +27,14 @@ osascript -e "${SCRIPT}"
 
 print_music_track() {
   local track=$(music_track)
-  echo $track
+  if [[ $track == *" - YouTube Music" ]]; then
+    track="${track%" - YouTube Music"}"  # Remove ' - YouTube Music' from the end of the track
+    echo "$track"
+  elif [ "$track" == "YouTube Music" ]; then
+    echo ""
+  else
+    echo "$track"
+  fi
 }
 
 update_track() {
