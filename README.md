@@ -1,30 +1,36 @@
-# Tmux TIDAL Plugin
+# Tmux YouTube Music Plugin
 
-Tmux plugin that shows the current music status for TIDAL 
+Tmux plugin that shows the current music status for YouTube Music
 
-(OSX only)
+(OSX + Google Chrome only)
+> An .applescript will be run to check Google Chrome for a tab where YouTube Music is being played.
+
+#### Enable appleScript to execute Javascript
+This plugin uses applescript to execute javascript in google chrome.
+> ( in Google Chrome ) turn it on by, from the menu bar, go to View > Developer > Allow JavaScript from Apple Events.
+
+Note: it's also possible to install YouTube Music as Browser app.
 
 Introduces the following new status variables:
 
-* `#{music_status}`
 * `#{track}`
+
+![Screenshot](https://github.com/kdssoftware/tmux-youtube-music/assets/10829524/cc2bee71-c3dd-468d-893d-ae259b2734b3)
+TODOs:
+Add a `#{status}` based on any sound being played or not.
+
 
 ### Usage
 
 The following interpolations are made available for your statusline:
 
-* `#{music_status}` - TIDAL status icons
-* `#{artist}` - Current playing track the 'song title - artist'
+* `#{track}` - Will show a 'pause' icon if nothing is found, else the info will be shown
 
 Here's the example in `.tmux.conf`:
 
-    set -g status-right "♫ #{music_status} #{track} | %a %h-%d %H:%M "
-
-Customize the icons with:
-
-    set -g @tidal_playing_icon ">"
-    set -g @tidal_paused_icon "="
-
+```
+set -g status-right "♫ #{track}"
+```
 
 ### Screenshots
 
@@ -32,7 +38,7 @@ Customize the icons with:
 
 Add plugin to the list of TPM plugins in `.tmux.conf`:
 
-    set -g @plugin 'kdssoftware/tmux-tidal'
+    set -g @plugin 'kdssoftware/tmux-youtube-music'
 
 Hit `prefix + I` to fetch the plugin and source it.
 
@@ -40,7 +46,7 @@ Hit `prefix + I` to fetch the plugin and source it.
 
 Clone the repo:
 
-    $ git clone https://github.com/kdssoftware/tmux-tidal ~/clone/path
+    $ git clone https://github.com/kdssoftware/tmux-youtube-music ~/clone/path
 
 Add this line to the bottom of `.tmux.conf`:
 
@@ -50,6 +56,3 @@ Reload TMUX environment:
 
     # type this in terminal
     $ tmux source-file ~/.tmux.conf
-
-### Thanks
-Thanks to https://github.com/robhurring/tmux-spotify for a good boilerplate good which was used to create this repo
