@@ -5,12 +5,9 @@ source "$CURRENT_DIR/helpers.sh"
 
 track=""
 
-music_track() {
-}
-
 print_music_track() {
   local trackInfo
-  trackInfo=$(osascript -e "./track.applescript")
+  trackInfo=$(osascript "./track.applescript")
   # Remove any unneeded strings
   trackInfo=$(echo "$trackInfo" | sed -E 's/• .+ views//g; s/• .+ likes//g; s/ - YouTube Music//g; s/, YouTube Music//g; s/YouTube Music, //g')
   # trim spaces

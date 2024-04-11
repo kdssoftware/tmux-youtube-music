@@ -7,16 +7,18 @@ tell application "Google Chrome"
             set tabTitle to title of t
             if tabTitle ends with "YouTube Music" then
                 tell t
-                    execute javascript "var element = document.querySelector('.title.style-scope.ytmusic-player-bar'); var title = (element && element.getAttribute('title')) || 'Nothing playing'; title;"
-                    set YTtitle to result
+                    set YTtitle to execute javascript "var element = document.querySelector('.title.style-scope.ytmusic-player-bar'); if (element) {element.getAttribute('title')} else {'Nothing playing'}"
                 end tell
                 tell t
-                    execute javascript "var element = document.querySelector('.byline.style-scope.ytmusic-player-bar'); var title = (element && element.getAttribute('title')) || 'Nothing playing'; title;"
-                    set YTbyline to result
+                    set YTbyline to execute javascript "var element = document.querySelector('.byline.style-scope.ytmusic-player-bar'); if (element) {element.getAttribute('title')} else {'Unknown artist'}"
                 end tell
             end if
         end repeat
     end repeat
 end tell
 
-return YTtitle & " by " & YTbyline
+if YTtitle is not equal to "" then
+    return YTtitle & " by " & YTbyline
+else
+    return "Nothing playing"
+end if
